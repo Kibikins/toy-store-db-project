@@ -8,8 +8,8 @@
     CREATE TABLE IF NOT EXISTS toy_store.orders (
         order_id int PRIMARY KEY,
         created_at timestamp NOT NULL,
-        website_session_id varchar(255) NOT NULL REFERENCES toy_store.website_sessions(website_session_id),
-        user_id int NOT NULL REFERENCES toy_store.website_sessions(user_id),
+        website_session_id varchar(255) NOT NULL,
+        user_id int NOT NULL,
         primary_product_id int REFERENCES toy_store.products(product_id),
         items_purchased int NOT NULL,
         price_usd decimal(10, 2) NOT NULL, 
