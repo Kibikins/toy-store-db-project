@@ -1,4 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS toy_store
+CREATE SCHEMA IF NOT EXISTS toy_store;
     CREATE TABLE toy_store.products (
         product_id int PRIMARY KEY,
         created_at timestamp NOT NULL, 
