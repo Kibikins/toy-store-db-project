@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS toydb
 CREATE SCHEMA IF NOT EXISTS toy_store
     CREATE TABLE toy_store.products (
         product_id int PRIMARY KEY,
