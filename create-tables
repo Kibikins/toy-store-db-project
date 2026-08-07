@@ -1,0 +1,52 @@
+    BEGIN;
+
+    CREATE TABLE IF NOT EXISTS toy_store.products (
+        product_id int NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL, 
+        product_name varchar(255) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.orders (
+        order_id int NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL,
+        website_session_id varchar(255) NOT NULL,
+        user_id int NOT NULL,
+        primary_product_id int,
+        items_purchased int NOT NULL,
+        price_usd decimal(10, 2) NOT NULL, 
+        cogs_usd decimal(10, 2) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.order_items (
+        order_item_id int NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL,
+        order_id int,
+        product_id int,
+        is_primary_item boolean NOT NULL,
+        price_usd decimal(10, 2) NOT NULL,
+        cogs_usd decimal(10, 2) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.order_item_refunds (
+        order_item_refund_id int NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL,
+        order_item_id int ,
+        order_id int ,
+        refund_amount_usd decimal(10, 2) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.website_sessions (
+        website_session_id varchar(255) NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL,
+        user_id int NOT NULL,
+        is_repeat_session boolean NOT NULL,
+        utm_source varchar(255) NOT NULL,
+        utm_campaign varchar(255) NOT NULL,
+        utm_content varchar(255) NOT NULL,
+        device_type varchar(255) NOT NULL,
+        http_referer varchar(255) NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.website_pageviews (
+        website_pageview_id int NOT NULL PRIMARY KEY,
+        created_at timestamp NOT NULL,
+        website_session_id varchar(255),
+        page_url varchar(255) NOT NULL
+    );
+
+    COMMIT;
