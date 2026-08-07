@@ -1,12 +1,12 @@
     BEGIN;
 
     CREATE TABLE IF NOT EXISTS toy_store.products (
-        product_id int PRIMARY KEY,
+        product_id int NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL, 
         product_name varchar(255) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS toy_store.orders (
-        order_id int PRIMARY KEY,
+        order_id int NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL,
         website_session_id varchar(255) NOT NULL,
         user_id int NOT NULL,
@@ -16,7 +16,7 @@
         cogs_usd decimal(10, 2) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS toy_store.order_items (
-        order_item_id int PRIMARY KEY,
+        order_item_id int NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL,
         order_id int REFERENCES toy_store.orders(order_id),
         product_id int REFERENCES toy_store.products(product_id),
@@ -25,14 +25,14 @@
         cogs_usd decimal(10, 2) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS toy_store.order_item_refunds (
-        order_item_refund_id int PRIMARY KEY,
+        order_item_refund_id int NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL,
         order_item_id int REFERENCES toy_store.order_items(order_item_id),
         order_id int REFERENCES toy_store.orders(order_id),
         refund_amount_usd decimal(10, 2) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS toy_store.website_sessions (
-        website_session_id varchar(255) PRIMARY KEY,
+        website_session_id varchar(255) NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL,
         user_id int NOT NULL REFERENCES toy_store.orders(user_id),
         is_repeat_session boolean NOT NULL,
@@ -43,7 +43,7 @@
         http_referer varchar(255) NOT NULL
     );
     CREATE TABLE IF NOT EXISTS toy_store.website_pageviews (
-        website_pageview_id int PRIMARY KEY,
+        website_pageview_id int NOT NULL PRIMARY KEY,
         created_at timestamp NOT NULL,
         website_session_id varchar(255) REFERENCES toy_store.website_sessions(website_session_id),
         page_url varchar(255) NOT NULL
