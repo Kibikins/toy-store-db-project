@@ -3,7 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 # Create a connection to the database
-engine = create_engine('postgresql://nakiasmith@localhost:5432/mydb') 
+engine = create_engine('postgresql://nakiasmith@localhost:5432/toydb') 
 
 # Folder file path
 csv_folder = '/Users/nakiasmith/Downloads/Maven+Fuzzy+Factory/'
