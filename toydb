@@ -1,9 +1,11 @@
-    CREATE TABLE toy_store.products (
+    BEGIN;
+
+    CREATE TABLE IF NOT EXISTS toy_store.products (
         product_id int PRIMARY KEY,
         created_at timestamp NOT NULL, 
         product_name varchar(255) NOT NULL
-    )
-    CREATE TABLE toy_store.orders (
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.orders (
         order_id int PRIMARY KEY,
         created_at timestamp NOT NULL,
         website_session_id varchar(255) NOT NULL REFERENCES toy_store.website_sessions(website_session_id),
@@ -12,8 +14,8 @@
         items_purchased int NOT NULL,
         price_usd decimal(10, 2) NOT NULL, 
         cogs_usd decimal(10, 2) NOT NULL
-    )
-    CREATE TABLE toy_store.order_items (
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.order_items (
         order_item_id int PRIMARY KEY,
         created_at timestamp NOT NULL,
         order_id int REFERENCES toy_store.orders(order_id),
@@ -21,15 +23,15 @@
         is_primary_item boolean NOT NULL,
         price_usd decimal(10, 2) NOT NULL,
         cogs_usd decimal(10, 2) NOT NULL
-    )
-    CREATE TABLE toy_store.order_item_refunds (
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.order_item_refunds (
         order_item_refund_id int PRIMARY KEY,
         created_at timestamp NOT NULL,
         order_item_id int REFERENCES toy_store.order_items(order_item_id),
         order_id int REFERENCES toy_store.orders(order_id),
         refund_amount_usd decimal(10, 2) NOT NULL
-    )
-    CREATE TABLE toy_store.website_sessions (
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.website_sessions (
         website_session_id varchar(255) PRIMARY KEY,
         created_at timestamp NOT NULL,
         user_id int NOT NULL REFERENCES toy_store.orders(user_id),
@@ -39,10 +41,12 @@
         utm_content varchar(255) NOT NULL,
         device_type varchar(255) NOT NULL,
         http_referer varchar(255) NOT NULL
-    )
-    CREATE TABLE toy_store.website_pageviews (
+    );
+    CREATE TABLE IF NOT EXISTS toy_store.website_pageviews (
         website_pageview_id int PRIMARY KEY,
         created_at timestamp NOT NULL,
         website_session_id varchar(255) REFERENCES toy_store.website_sessions(website_session_id),
         page_url varchar(255) NOT NULL
     );
+
+    COMMIT;
