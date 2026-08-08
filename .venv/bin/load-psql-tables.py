@@ -20,5 +20,5 @@ for file in os.listdir(csv_folder):
         df = pd.read_csv(file_path)
         
         # Load into database (creates table if it doesn't exist)
-        df.to_sql(table_name, engine, if_exists='replace', index=False)
+        df.to_sql(table_name, engine, schema='toy_store',if_exists='replace', index=False)
         print(f"Successfully loaded {file} into table '{table_name}'")
